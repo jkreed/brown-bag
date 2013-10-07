@@ -1,6 +1,6 @@
 # brown-bag
 
-A Clojure library designed to ... well, that part is up to you.
+A common place to store our Clojure brown bag discussion code.
 
 ## Usage
 
