@@ -21,7 +21,7 @@
 (defn reverse-string2point5 
   "Reverse a string using standard recursion."
   [[f & r]]
-  (when (not (nil? f))
+  (when f
     (str (reverse-string2 r) f)))
 
 (defn reverse-string3 
