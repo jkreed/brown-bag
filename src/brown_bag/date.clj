@@ -16,20 +16,20 @@
   (if (leap-year? year) 29 28))
 
 (def months
-  (let [31-days-hath (constantly 31)
-        30-days-hath (constantly 30)]
-    {1 31-days-hath
+  (let [has-31-days (constantly 31)
+        has-30-days (constantly 30)]
+    {1 has-31-days
      2 days-in-february
-     3 31-days-hath
-     4 30-days-hath
-     5 31-days-hath
-     6 30-days-hath
-     7 31-days-hath
-     8 31-days-hath
-     9 30-days-hath
-     10 31-days-hath
-     11 30-days-hath
-     12 31-days-hath}))
+     3 has-31-days
+     4 has-30-days
+     5 has-31-days
+     6 has-30-days
+     7 has-31-days
+     8 has-31-days
+     9 has-30-days
+     10 has-31-days
+     11 has-30-days
+     12 has-31-days}))
 
 (def epoch [3 17 1997])
 
