@@ -15,6 +15,9 @@
 (defn- days-in-february [year]
   (if (leap-year? year) 29 28))
 
+(defn- days-in-year [year]
+  (if (leap-year? year) 366 365))
+
 (def months
   (let [has-31-days (constantly 31)
         has-30-days (constantly 30)]
@@ -36,5 +39,20 @@
 (defn get-day-number [^java.util.Date date]
   )
 
-(defn- days-from-epoch [epoch coll])
+(defn- day-of-year [triple]
+  (let [f (fn [month] ((get months month) (get triple 2)))
+        d (map f (range 1 (get triple 0)))  
+        t (reduce + d)]
+   (+ t (get triple 1)))) 
+
+(defn- remaining-days-of-year [triple]
+  (let [year (get triple 2)]
+    (- (days-in-year year) (day-of-year triple))))
+
+(defn- days-diff [left right]
+  (let [r (range (get left 2) (inc (get right 2)))
+        d (map days-in-year r)
+        t (reduce + d)]
+    (- t (remaining-days-of-year right) (day-of-year left))))
+  
 
