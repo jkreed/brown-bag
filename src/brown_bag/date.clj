@@ -6,6 +6,8 @@
 ; iterop with other types
 ; formatting
 
+(declare days-diff)
+
 (defn- leap-year? [year] 
   {:pre [(> year 0)]}
   (or (= 0 (mod year 400))
@@ -34,10 +36,13 @@
      11 has-30-days
      12 has-31-days}))
 
-(def epoch [3 17 1997])
+(def epoch [3 17 1997]) ; day zero
 
-(defn get-day-number [^java.util.Date date]
-  )
+(defn from-java [^java.util.Date date]
+  [(inc (.getMonth date)) (.getDate date) (+ 1900 (.getYear date))]) 
+
+(defn get-day-number [triple]
+  (days-diff epoch triple))
 
 (defn- day-of-year [triple]
   (let [f (fn [month] ((get months month) (get triple 2)))
@@ -55,4 +60,6 @@
         t (reduce + d)]
     (- t (remaining-days-of-year right) (day-of-year left))))
   
-
+(defmulti day-number class)
+(defmethod day-number java.util.Date [d] (get-day-number (from-java d)))
+(defmethod day-number clojure.lang.ISeq [d] (get-day-number d))
